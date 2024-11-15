@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "question": "Which keyword is used to declare a variable in JavaScript?",
+      "options": ["var", "let", "const", "All of the above"],
+      "answer": "All of the above"
+    },
+    {
+      "id": 2,
+      "question": "What does the method `Array.prototype.filter()` return in JavaScript?",
+      "options": [
+        "The first matching element",
+        "A filtered array",
+        "The last matching element",
+        "A string"
+      ],
+      "answer": "A filtered array"
+    },
+    {
+      "id": 3,
+      "question": "How do you declare a function in Python?",
+      "options": ["function my_function()", "def my_function()", "func my_function()", "lambda my_function()"],
+      "answer": "def my_function()"
+    },
+    {
+      "id": 4,
+      "question": "In HTML, which attribute is used to specify an image source?",
+      "options": ["<img>", "src", "href", "alt"],
+      "answer": "src"
+    },
+    {
+      "id": 5,
+      "question": "Which language is mainly used for styling web pages?",
+      "options": ["JavaScript", "HTML", "CSS", "PHP"],
+      "answer": "CSS"
+    }
+  ]
+  

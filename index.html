@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Quiz Game</h1>
+    <div v-if="!quizFinished">
+      <h2 v-if="currentQuestion">{{ currentQuestion.question }}</h2>
+      <ul v-if="currentQuestion">
+        <li v-for="option in currentQuestion.options" :key="option" @click="checkAnswer(option)">
+          {{ option }}
+        </li>
+      </ul>
+      <p v-if="feedback">{{ feedback }}</p>
+    </div>
+
+    <div v-if="quizFinished">
+      <h2>Quiz Finished!</h2>
+      <p>Your score: {{ score }} / {{ questions.length }}</p>
+      <button @click="restartQuiz">Restart</button>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          questions: [],
+          currentIndex: 0,
+          score: 0,
+          feedback: '',
+          quizFinished: false
+        };
+      },
+      computed: {
+        currentQuestion() {
+          return this.questions.length > 0 ? this.questions[this.currentIndex] : null;
+        }
+      },
+      methods: {
+        async loadQuestions() {
+          try {
+            const response = await fetch('./questions.json');
+            if (!response.ok) throw new Error('Failed to load questions.');
+            this.questions = await response.json();
+          } catch (error) {
+            console.error('Error loading questions:', error);
+            alert('Error: Could not load the quiz questions. Please try again later.');
+          }
+        },
+        checkAnswer(selectedOption) {
+          if (selectedOption === this.currentQuestion.answer) {
+            this.score += 1;
+            this.feedback = 'Correct!';
+          } else {
+            this.feedback = `Wrong. The correct answer was: ${this.currentQuestion.answer}`;
+          }
+
+          setTimeout(() => {
+            this.feedback = '';
+            this.currentIndex += 1;
+            if (this.currentIndex >= this.questions.length) {
+              this.quizFinished = true;
+            }
+          }, 1000);
+        },
+        restartQuiz() {
+          this.currentIndex = 0;
+          this.score = 0;
+          this.quizFinished = false;
+        }
+      },
+      mounted() {
+        this.loadQuestions();
+      }
+    });
+  </script>
+</body>
+</html>
