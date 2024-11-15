@@ -51,7 +51,6 @@
             if (!response.ok) throw new Error('Failed to load questions.');
             this.questions = await response.json();
           } catch (error) {
-            console.error('Error loading questions:', error);
             alert('Error: Could not load the quiz questions. Please try again later.');
           }
         },
